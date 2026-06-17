@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>GymMath</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="app-header">
+        <div class="nav-flex">
+            <div class="logo">🏋️‍♂️ GymMath</div>
+            <div class="controls">
+                <select id="calcSelect" aria-label="Выбор раздела">
+                    <option value="profile">Профиль</option>
+                    <option value="bmi">ИМТ</option>
+                    <option value="bmr">Базовый метаболизм (BMR) + КБЖУ</option>
+                    <option value="tdee">Суточные калории (TDEE)</option>
+                    <option value="bodyfat">Процент жира (Navy)</option>
+                    <option value="ideal">Идеальный вес</option>
+                    <option value="whtr">Индекс талия-рост (WHtR)</option>
+                    <option value="water">Норма воды</option>
+                    <option value="burn">Расход калорий (MET)</option>
+                    <option value="heart">Зоны пульса</option>
+                    <option value="max-rep">Силовой максимум и рабочие веса</option>
+                    <option value="running">Темп бега</option>
+                    <option value="deficit">Дефицит / профицит и прогноз</option>
+                </select>
+                <button class="btn-gym-nav" id="gymNavBtn">Каталог залов</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-card">
+        <h1>Твой расширенный фитнес-помощник</h1>
+        <div class="hero-footer">
+            <span>Разработчик:</span>
+            <a href="mailto:sport@top.ru">sport@top.ru</a>
+        </div>
+    </section>
+
+    <!-- ПРОФИЛЬ -->
+    <div id="profile" class="container active">
+        <div class="calc-grid">
+            <div class="calc-form" style="max-width:600px;">
+                <h2>Ваши параметры</h2>
+                <div class="gender-row" style="display:flex; gap:20px; margin-bottom:12px;">
+                    <label><input type="radio" name="gender" value="male" checked> Мужчина</label>
+                    <label><input type="radio" name="gender" value="female"> Женщина</label>
+                </div>
+                <div class="form-group"><label>Возраст (лет)</label><input id="profile-age" type="number" value="30">
+                </div>
+                <div class="form-group"><label>Рост (см)</label><input id="profile-height" type="number" value="175">
+                </div>
+                <div class="form-group"><label>Вес (кг)</label><input id="profile-weight" type="number" value="80">
+                </div>
+                <div class="form-group"><label>Уровень дневной активности</label>
+                    <select id="profile-activity">
+                        <option value="1.2">Сидячий образ жизни </option>
+                        <option value="1.375">Лёгкая активность (1-2 раза/нед)</option>
+                        <option value="1.55" selected>Умеренная (3-5 раз/нед)</option>
+                        <option value="1.725">Высокая (6-7 раз/нед)</option>
+                        <option value="1.9">Экстремальная (спортсмен/физ. труд)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ИМТ -->
+    <div id="bmi" class="container">
+        <div class="calc-grid">
+            <div class="calc-form">
+                <h2>Индекс массы тела (ИМТ)</h2><button class="btn-primary" id="btnBMI">Рассчитать</button>
+                <div id="bmi-res" class="result"></div>
+            </div>
+            <div class="calc-info">
+                <div class="tip-box">ИМТ = вес (кг) / рост (м)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BMR + КБЖУ -->
+    <div id="bmr" class="container">
+        <div class="calc-grid">
+            <div class="calc-form">
+                <h2>BMR + КБЖУ</h2><button class="btn-primary" id="btnBMR">Рассчитать</button>
+                <div id="bmr-res" class="result"></div>
+            </div>
+            <div class="calc-info">
+                <div class="tip-box">Миффлин - Сан Жеор, белки 1.8 г/кг, жиры 0.9 г/кг.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TDEE -->
+    <div id="tdee" class="container">
+        <div class="calc-grid">
+            <div class="calc-form">
+                <h2>Суточная норма калорий (TDEE)</h2><button class="btn-primary" id="btnTDEE">Рассчитать</button>
+                <div id="tdee-res" class="result"></div>
+            </div>
+            <div class="calc-info">
+                <div class="tip-box">TDEE = BMR x коэффициент активности.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Процент жира -->
+    <div id="bodyfat" class="container">
+        <div class="calc-grid">
+            <div class="calc-form">
+                <h2>Процент жира</h2>
+                <div class="form-group"><label>Обхват талии (см, на уровне пупка)</label><input id="bf-waist"
+                        type="number" value="85"></div>
+                <div class="form-group"><label>Обхват шеи (см, ниже кадыка)</label><input id="bf-neck" type="number"
+                        value="38"></div>
+                <div class="form-group" id="bf-hip-group" style="display:none;"><label>Обхват бёдер (см, по
+                        ягодицам)</label><input id="bf-hip" type="number" value="100"></div>
+                <button class="btn-primary" id="btnBodyFat">Рассчитать</button>
+                <div id="bodyfat-res" class="result"></div>
+            </div>
+            <div class="calc-info">
+                <div class="tip-box">Метод (Navy). Точность +-2-3% без весов-анализаторов.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Идеальный вес -->
+    <div id="ideal" class="container">
+        <div class="calc-grid">
+            <div class="calc-form">
+                <h2>Идеальный вес</h2><button class="btn-primary" id="btnIdeal">Рассчитать</button>
+                <div id="ideal-res" class="result"></div>
+            </div>
+            <div class="calc-info">
+                <div class="tip-box">Формула Робинсона, диапазон ИМТ 18.5-24.9.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WHtR -->
+    <div id="whtr" class="container">
+        <div class="calc-grid">
+            <div class="calc-form">
+                <h2>Индекс талия-рост (WHtR)</h2>
+                <div class="form-group"><label>Обхват талии (см)</label><input id="whtr-waist" type="number" value="85">
+                </div>
+                <button class="btn-primary" id="btnWHtR">Рассчитать</button>
+                <div id="whtr-res" class="result"></div>
+            </div>
+            <div class="calc-info">
+                <div class="tip-box">Менее 0.5 - низкий риск ССЗ.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Вода -->
+    <div id="water" class="container">
+        <div class="calc-grid">
+            <div class="calc-form">
+                <h2>Норма воды</h2><button class="btn-primary" id="btnWater">Рассчитать</button>
+                <div id="water-res" class="result"></div>
+            </div>
+            <div class="calc-info">
+                <div class="tip-box">35 мл на кг веса, +500 мл при тренировке.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Расход калорий MET -->
+    <div id="burn" class="container">
+        <div class="calc-grid">
+            <div class="calc-form">
+                <h2>Сжигание калорий (MET)</h2>
+                <div class="form-group"><label>Длительность (мин)</label><input id="ex-time" type="number" value="45">
+                </div>
+                <div class="form-group"><label>Тип активности</label>
+                    <select id="ex-type">
+                        <option value="run-medium">Бег, средний темп</option>
+                        <option value="run-slow">Бег трусцой</option>
+                        <option value="run-fast">Бег быстрый</option>
+                        <option value="power-heavy">Тяжёлая силовая</option>
+                        <option value="power-cross">Кроссфит/HIIT</option>
+                    </select>
+                </div>
+                <button class="btn-primary" id="btnBurn">Рассчитать</button>
+                <div id="ex-burn-res" class="result"></div>
+            </div>
+            <div class="calc-info">
+                <div class="tip-box">По MET-эквиваленту. Вес берётся из профиля.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Зоны пульса -->
+    <div id="heart" class="container">
+        <div class="calc-grid">
+            <div class="calc-form">
+                <h2>Зоны пульса (Карвонен)</h2>
+                <div class="form-group"><label>Пульс в покое (уд/мин, утром)</label><input id="heart-restHR"
+                        type="number" value="65"></div>
+                <button class="btn-primary" id="btnHeart">Рассчитать</button>
+                <div id="heart-res" class="result"></div>
+            </div>
+            <div class="calc-info">
+                <div class="tip-box">Возраст берётся из профиля. Резерв ЧСС по Карвонену.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Силовой максимум и рабочие веса -->
+    <div id="max-rep" class="container">
+        <div class="calc-grid">
+            <div class="calc-form">
+                <h2>1ПМ и рабочие веса</h2>
+                <div class="form-group"><label>Поднятый вес (кг)</label><input id="ep-weight" type="number" value="60">
+                </div>
+                <div class="form-group"><label>Повторений (1-5)</label><input id="ep-reps" type="number" value="3"
+                        min="1" max="5"></div>
+                <button class="btn-primary" id="btnMaxRep">Рассчитать</button>
+                <div id="max-res" class="result"></div>
+            </div>
+            <div class="calc-info">
+                <div class="tip-box">Формула Эпли, веса на 8, 10, 12 повторений.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Темп бега -->
+    <div id="running" class="container">
+        <div class="calc-grid">
+            <div class="calc-form">
+                <h2>Темп бега / скорость</h2>
+                <div class="form-group"><label>Дистанция (км)</label><input id="runDist" type="number" value="5"
+                        step="0.1" min="0.1"></div>
+                <div class="form-group"><label>Желаемое время (мин)</label><input id="runTime" type="number" value="25"
+                        step="0.1" min="1"></div>
+                <button class="btn-primary" id="btnRunning">Рассчитать</button>
+                <div id="running-res" class="result"></div>
+            </div>
+            <div class="calc-info">
+                <div class="tip-box">Темп = время / дистанция.</div>
+            </div>
+        </div>
+    </div>
+    <!-- Дефицит / профицит -->
+    <div id="deficit" class="container">
+        <div class="calc-grid">
+            <div class="calc-form">
+                <h2>Прогноз достижения цели</h2>
+                <div class="form-group"><label>Цель (кг)</label><input id="deficit-goalKg" type="number" value="5"
+                        step="0.1" min="0.1"></div>
+                <div class="form-group"><label>Тип</label><select id="deficit-goalType">
+                        <option value="lose">Похудеть</option>
+                        <option value="gain">Набрать</option>
+                    </select></div>
+                <button class="btn-primary" id="btnDeficit">Рассчитать срок</button>
+                <div id="deficit-res" class="result"></div>
+            </div>
+            <div class="calc-info">
+                <div class="tip-box">Безопасный дефицит/профицит 20% от TDEE. 1 кг жира = 7700 ккал.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Каталог залов -->
+    <div id="gyms" class="container">
+        <div class="gym-header-section">
+            <h2>Спортивные клубы Саратовской области</h2>
+        </div>
+        <div id="dynamicGymsContainer"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
